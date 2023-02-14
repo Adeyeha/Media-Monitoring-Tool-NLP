@@ -1,0 +1,18 @@
+django == 3.0.6
+django-crispy-forms
+djangorestframework
+django-background-tasks
+scikit-learn==0.23.1
+scipy==1.5.4
+nltk
+python-dateutil
+requests
+bs4
+newspaper3k
+gunicorn
+whitenoise
+apscheduler 
+pyodbc
+django-mssql-backend
+django-background-tasks
+numpy

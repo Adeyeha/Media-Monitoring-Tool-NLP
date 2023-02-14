@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard' %}">News</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            All News
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- <div class="col-md-2">
+      <a href="#" class="btn btn-primary">Add Expense</a>
+    </div> -->
+  </div>
+
+  <div class="container">
+    {% include 'partials/_messages.html' %} {% if newslist.count %}
+
+    <div class="row">
+    
+      <div class="col-md-3">
+          <!-- <input type="select" class="form-control" id="searchField" placeholder="Search" value="date"> -->
+          <select name="method" id="method" class="form-control">
+            <option value="date">Date</option>
+            <option value="keyword">Keyword</option>
+          </select>
+      </div>
+      
+      <div class="col-md-7">
+        <form action="{% url 'searchnews' %}" method="post" id="form">
+          {% csrf_token %}
+        <div class="form-group">
+          <input type="text" name = "keywordsearchField" class="form-control" id="keywordsearchField" placeholder="Search" style="display:none">
+          <input type="date" name = "datesearchField" class="form-control" id="datesearchField" placeholder="Search">
+        </div>
+      </form>
+      </div>
+      <div class="col-md-2">
+        <input type="submit" value="Search" form="form" class="btn btn-block btn-primary submit-btn" />
+      </div>
+    </div>
+<div class="app-table">
+
+  <table class="table table-stripped table-hover" id="newTable">
+    <thead>
+      <tr>
+        <th>Search Subject</th>
+        <th>Title</th>
+        <th>Sentiment</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for items in page_obj%}
+      <tr class='clickable-row' data-href="{% url 'newsdetails' items.id  %}">
+        <td>{{items.search_subject}}</td>
+        <td>{{items.title}}</td>
+        {% ifequal items.sentiment 'Negative' %}
+        <td><img src="{% static 'core/img/negative.png' %}" width="30" height="30"></td>
+        {% endifequal %}
+        {% ifequal items.sentiment 'Positive' %}
+        <td><img src="{% static 'core/img/positive.png' %}"  width="30" height="30"></td>
+        {% endifequal %}
+        {% ifequal items.sentiment 'Neutral' %}
+        <td><img src="{% static 'core/img/neutral.png' %}"  width="30" height="30"></td>
+        {% endifequal %}
+        <td>{{items.timestamp|date:"F d, Y  h:i:s A"}}</td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- <p class="no-results" style="display: none;">No results </p>
+    <div class="table-output">
+
+
+      <table class="table table-stripped table-hover">
+        <thead>
+          <tr>
+            <th>Search Subject</th>
+            <th>Title</th>
+            <th>Sentiment</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+
+        <tbody  class="table-body">
+
+
+        </tbody>
+      </table>
+    </div> -->
+
+
+
+
+    <div class="pagination-container">
+    <div class="">
+      Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
+    </div>
+    <ul class="pagination align-right float-right mr-auto">
+      {% if page_obj.has_previous %}
+      <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+
+      {% if page_obj.has_next %}
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+      {% endif %}
+
+
+      </ul>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+<script src="{% static 'core/js/newssearch.js' %}"></script>
+<!-- <script src="{% static 'core/js/autorefresh.js' %}"></script> -->
+
+
+
+
+{% endblock %}

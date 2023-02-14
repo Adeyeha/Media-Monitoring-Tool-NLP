@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %} 
+{% block content %}
+
+<div class="container mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'searchsubject_index'%}">Search Subject</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Add Search Subject</li>
+    </ol>
+  </nav>
+
+  <div class="card">
+    <div class="card-body">
+      <form action="#" method="post">
+        {% include 'partials/_messages.html'%} {% csrf_token %}
+        <div class="form-group">
+          <label for="">Search Subject</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="searchstring"
+            value="{{values.searchstring}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">StakeHolder</label>
+          <input
+            type="email"
+            class="form-control form-control-sm"
+            name="stakeholder"
+            value="{{values.stakeholder}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Sector</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="sector"
+            value="{{values.sector}}"
+          />
+        </div>
+        <input
+          type="submit"
+          value="Submit"
+          class="btn btn-primary btn-primary-sm"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %} 
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#" onclick="history.go(-1)">News</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">News Details</li>
+    </ol>
+  </nav>
+
+  <div class="card">
+    <div class="card-body">
+      <form action="#" method="post">
+        {% include 'partials/_messages.html'%} {% csrf_token %}
+        {{form|crispy}}
+        <!-- <div class="form-group">
+          <label for="">Subject</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="subject"
+            value="{{values.amount}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Title</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="title"
+            value="{{values.description}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Source</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="source"
+            value="{{values.description}}"
+        />
+        </div>
+        <div class="form-group">
+          <label for="">Url</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="url"
+          />
+        </div>
+        <div class="form-group">
+            <label for="">NewsDate</label>
+            <input
+              type="date"
+              class="form-control form-control-sm"
+              name="url"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">Summary</label>
+            <input
+              type="Textarea"
+              class="form-control form-control-sm"
+              name="url"
+            />
+          </div> -->
+<!-- 
+        <input
+          type="submit"
+          value="Submit"
+          class="btn btn-primary btn-primary-sm"
+        /> -->
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

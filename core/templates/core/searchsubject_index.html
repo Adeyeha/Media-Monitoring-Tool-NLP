@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'searchsubject_index' %}">Subjects</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            All Subjects
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="col-md-2">
+      <a href="{% url 'add_searchsubject'%}"  class="btn btn-primary">Add Subject</a>
+    </div>
+  </div>
+
+  <div class="container">
+    {% include 'partials/_messages.html' %} {% if searchstring.count %}
+
+    <div class="row">
+      <div class="col-md-3">
+        <select name="method" id="method" class="form-control">
+          <option value="date">Date</option>
+          <option value="keyword">Keyword</option>
+        </select>
+      </div>
+      <div class="col-md-7">
+        <form action="{% url 'searchsubjects' %}" method="post" id="form">
+          {% csrf_token %}
+        <div class="form-group">
+          <input type="text" name = "keywordsearchField" class="form-control" id="keywordsearchField" placeholder="Search" style="display:none">
+          <input type="date" name = "datesearchField" class="form-control" id="datesearchField" placeholder="Search">
+        </div>
+      </form>
+      </div>
+      <div class="col-md-2">
+        <input type="submit" value="Search" form="form" class="btn btn-block btn-primary submit-btn" />
+      </div>
+    </div>
+<div class="app-table">
+
+  <table class="table table-stripped table-hover" id="newTable">
+    <thead>
+      <tr>
+        <th>Search Subject</th>
+        <th>Sector</th>
+        <th>StakeHolder</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for items in page_obj%}
+      <tr class='clickable-row' data-href="{% url 'searchsubject_details' items.search_subject %}">
+        <td>{{items.search_subject}}</td>
+        <td>{{items.stakeholder}}</td>
+        <td>{{items.sector}}</td>
+        <td>{{items.timestamp|date:"F d, Y  h:i:s A"}}</td>
+
+        <td>
+            <a
+              href="{% url 'searchstring_delete' items.id  %}"
+              class="btn btn-secondary btn-sm"
+              >Delete</a
+            >
+        </td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- <p class="no-results" style="display: none;">No results </p>
+    <div class="table-output">
+
+
+      <table class="table table-stripped table-hover">
+        <thead>
+          <tr>
+            <th>Search Subject</th>
+            <th>StakeHolder</th>
+            <th>Timestamp</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody  class="table-body">
+
+
+        </tbody>
+      </table>
+    </div> -->
+
+
+
+
+    <div class="pagination-container">
+    <div class="">
+      Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
+    </div>
+    <ul class="pagination align-right float-right mr-auto">
+      {% if page_obj.has_previous %}
+      <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+
+      {% if page_obj.has_next %}
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+      {% endif %}
+
+
+      </ul>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+<script src="{% static 'core/js/newssearch.js' %}"></script>
+
+
+
+
+
+</script>
+
+
+{% endblock %}
