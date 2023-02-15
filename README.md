@@ -43,6 +43,6 @@ If you want to contribute to this project, please create a pull request with a d
 MIT
 
 ### Authors
-[Temitope Adeyeha](https://github.com/Adeyeha)
-Ridwan Salahudeen
+- [Temitope Adeyeha](https://github.com/Adeyeha)
+- [Ridwan Salahudeen](https://github.com/ridwan-salau)
 
