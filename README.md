@@ -12,7 +12,7 @@ This is an NLP-based web application that performs sentiment analysis on Google 
 Clone the repository and navigate to the directory.
 
 ``` sh
-git clone https://github.com/<repo-url>.git
+git clone https://github.com/Adeyeha/Media-Monitoring-Tool-NLP.git
 cd <repo-directory>
 ```
 Install the required libraries:
